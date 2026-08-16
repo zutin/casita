@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
   belongs_to :user
+  has_many :rooms, class_name: "Property::Room", dependent: :destroy
 
   enum :kind, { residential: 0, commercial: 1 }
   enum :deal_kind, { rent: 0, sale: 1, rent_and_sale: 2 }

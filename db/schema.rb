@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_010147) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_16_005518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_010147) do
     t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
+  create_table "property_rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "kind", default: 0, null: false
+    t.bigint "property_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_property_rooms_on_property_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -48,4 +56,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_010147) do
   end
 
   add_foreign_key "properties", "users"
+  add_foreign_key "property_rooms", "properties"
 end

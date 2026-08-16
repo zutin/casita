@@ -25,7 +25,7 @@ RSpec.describe Property, type: :model do
     it 'is not valid without a user' do
       @property.user = nil
       expect(@property).not_to be_valid
-      expect(@property.errors[:user]).to include("can't be blank")
+      expect(@property.errors[:user]).to include("must exist")
     end
 
     it 'is not valid without a state' do
@@ -68,24 +68,24 @@ RSpec.describe Property, type: :model do
       @property.deal_kind = :rent
       @property.rent_value_cents = nil
       expect(@property).not_to be_valid
-      expect(@property.errors[:rent_value_cents]).to include("can't be blank")
+      expect(@property.errors[:rent_value_cents]).to include("is not a number")
 
       @property.deal_kind = :rent_and_sale
       @property.rent_value_cents = nil
       expect(@property).not_to be_valid
-      expect(@property.errors[:rent_value_cents]).to include("can't be blank")
+      expect(@property.errors[:rent_value_cents]).to include("is not a number")
     end
 
     it 'is not valid without a sale_value_cents when deal_kind is sale or rent_and_sale' do
       @property.deal_kind = :sale
       @property.sale_value_cents = nil
       expect(@property).not_to be_valid
-      expect(@property.errors[:sale_value_cents]).to include("can't be blank")
+      expect(@property.errors[:sale_value_cents]).to include("is not a number")
 
       @property.deal_kind = :rent_and_sale
       @property.sale_value_cents = nil
       expect(@property).not_to be_valid
-      expect(@property.errors[:sale_value_cents]).to include("can't be blank")
+      expect(@property.errors[:sale_value_cents]).to include("is not a number")
     end
 
     it 'is not valid with a negative rent_value_cents' do
